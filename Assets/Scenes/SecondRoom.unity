@@ -279,7 +279,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.16037738, g: 0.16037738, b: 0.16037738, a: 0}
+  m_BackGroundColor: {r: 0.28555533, g: 0.56672966, b: 0.6509434, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1325,7 +1325,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _locationsToLoad:
-  - {fileID: 11400000, guid: 83de3f6373abf464a8778a4da01436a9, type: 2}
+  - {fileID: 11400000, guid: dcdf8f78fbf404b45b4862ff524486e5, type: 2}
   _sceneLoaderAnchor: {fileID: 11400000, guid: 1d51e996d86033040a2daa8909411057, type: 2}
 --- !u!1 &2035523093
 GameObject:
