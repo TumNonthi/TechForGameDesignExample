@@ -9,6 +9,11 @@ namespace MyPlatformer
     {
 #if UNITY_EDITOR
         public PersistentManagersSO[] ManagerScenes;
+        public bool IsEditorInitializationMode
+        {
+            get;
+            private set;
+        }
 
         private void Awake()
         {
@@ -33,6 +38,7 @@ namespace MyPlatformer
                     else if (j == SceneManager.sceneCount - 1)
                     {
                         scenesToLoad.Add(sceneSO);
+                        IsEditorInitializationMode = true;
                     }
                 }
             }

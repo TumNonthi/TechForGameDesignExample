@@ -9,9 +9,14 @@ namespace MyPlatformer
     {
         [Header("Asset Reference")]
         [SerializeField] private SceneLoaderAnchor _sceneLoaderAnchor;
+        [SerializeField] private PlayerSpawnSystemAnchor _spawnSystemAnchor;
+        [SerializeField] private LoadingScreenManager _loadingScreenManager;
 
         [Header("Persistent Manager Scenes")]
         [SerializeField] private List<PersistentManagersSO> _managerScenes = new List<PersistentManagersSO>();
+
+        [Header("Debug")]
+        [SerializeField] private float _minimumLoadTime = 0f;
 
         private List<AsyncOperation> _scenesToLoadAsyncOperations = new List<AsyncOperation>();
         private List<Scene> _scenesToUnload = new List<Scene>();
@@ -48,7 +53,7 @@ namespace MyPlatformer
 
             if (showLoadingScreen)
             {
-                // TODO: toggle loading screen on
+                _loadingScreenManager.ToggleLoadingScreen(true);
             }
 
             if (_scenesToLoadAsyncOperations.Count == 0)
@@ -66,7 +71,9 @@ namespace MyPlatformer
         {
             bool _loadingDone = false;
 
-            while (!_loadingDone)
+            float _loadTimer = 0f;
+
+            while (!_loadingDone || (_loadTimer < _minimumLoadTime))
             {
                 for (int i = 0; i < _scenesToLoadAsyncOperations.Count; i++)
                 {
@@ -83,20 +90,21 @@ namespace MyPlatformer
                     }
                 }
 
+                _loadTimer += Time.unscaledDeltaTime;
                 yield return null;
             }
 
             SetActiveScene();
             if (showLoadingScreen)
             {
-                // TODO: toggle loading screen off
+                _loadingScreenManager.ToggleLoadingScreen(false);
             }
         }
 
         private void SetActiveScene()
         {
             SceneManager.SetActiveScene(SceneManager.GetSceneByPath(_activeScene.scenePath));
-            // TODO: spawn player
+            _spawnSystemAnchor.GetReference().SpawnPlayer();
         }
 
         private void AddScenesToUnload()
